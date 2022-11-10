@@ -11,7 +11,14 @@ import SwiftUI
 struct ImageZoomAndCropApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GeometryReader { geometry in
+                ContentView()
+                    .environment(\.screenSize, geometry.size)
+                    .onAppear {
+                        print("screen size: \(geometry.size)")
+                    }
+            }
+            .ignoresSafeArea()
         }
     }
 }

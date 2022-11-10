@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var profileImage = ProfileImage()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            PhotoPicker(profileImage: $profileImage)
         }
         .padding()
     }
