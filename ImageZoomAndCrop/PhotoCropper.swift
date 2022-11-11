@@ -19,8 +19,6 @@ struct PhotoCropper: View {
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
     
-    let inset: CGFloat = 15
-    
     private var uiImage: UIImage {
         if let data = profileImage.imageData,
            let image = UIImage(data: data) {
@@ -30,7 +28,7 @@ struct PhotoCropper: View {
         }
     }
     
-    private var originalScale: CGFloat {
+    private var imageScale: CGFloat {
         if uiImage.size.width / uiImage.size.height >= screenSize.width / screenSize.height {
             return screenSize.width / uiImage.size.width
         } else {
@@ -47,10 +45,13 @@ struct PhotoCropper: View {
                           y: screenSize.height / 2)
                 .scaleEffect(zoomScale, anchor: zoomAnchor)
                 .offset(offset)
+                .onAppear {
+                    loadPreviousValues()
+                }
             
             Rectangle()
                 .fill(Color.black)
-                .opacity(0.55)
+                .opacity(0.75)
                 .mask(circleMask.fill(style: FillStyle(eoFill: true)))
             
             VStack {
@@ -77,53 +78,33 @@ struct PhotoCropper: View {
 //MARK: - FUNCTIONS
 extension PhotoCropper {
     func saveImage() {
-        //        profileImage.scale = Double(zoomScale)
-        //        profileImage.position = finalPosition
         guard let croppedImage = cropImage(uiImage) else {
             return
         }
-        print("photo cropped")
-        print(croppedImage.size)
+        print("photo cropped successfully")
         profileImage.croppedImageData = croppedImage.pngData()
+        profileImage.scale = Double(zoomScale)
+        profileImage.position = offset
     }
     
     func cropImage(_ image: UIImage) -> UIImage? {
-        guard let cgImage: CGImage = image.cgImage else {
+        guard let cgImage: CGImage = image.fixOrientation().cgImage else {
             print("failed to convert to CGImage")
             return nil
         }
         
         let imageWidth: CGFloat = CGFloat(cgImage.width)
         let imageHeight: CGFloat = CGFloat(cgImage.height)
-        let scaler: CGFloat = imageWidth / screenSize.width
         
         var cropRect: CGRect {
-//            let imageWidth: CGFloat = uiImage.size.width.pixelsToPoints()
-//            let imageHeight: CGFloat = uiImage.size.height.pixelsToPoints()
-//
-//            let cropSize: CGFloat = (screenSize.width / originalScale)
+            let cropSize: CGFloat = (screenSize.width / imageScale) / zoomScale
             
-            let cropSize: CGFloat = (screenSize.width * scaler) / zoomScale
-//            let cropSize: CGFloat = ((screenSize.width - (inset * 2)) * scaler)
-            
-            // intial offsets good!!
             let initialX: CGFloat = ((imageWidth - cropSize) / 2)
             let initialY: CGFloat = ((imageHeight - cropSize) / 2)
-
-            // below: scaling + zoom good! panning not working
-//            let xOffset: CGFloat = ((initialX + (offset.width * scaler)) * zoomScale)
-//            let yOffset: CGFloat = ((initialY + (offset.height * scaler)) * zoomScale)
-            
-            let xOffset: CGFloat = initialX - (offset.width * scaler) / zoomScale
-            let yOffset: CGFloat = initialY - (offset.height * scaler) / zoomScale
+            let xOffset: CGFloat = initialX - (offset.width / imageScale) / zoomScale
+            let yOffset: CGFloat = initialY - (offset.height / imageScale) / zoomScale
             
             let rect = CGRect(x: xOffset, y: yOffset, width: cropSize, height: cropSize)
-//            print("scaler: \(scaler)")
-//            print("zoom scale: \(zoomScale)")
-//            print("crop size: \(cropSize)")
-//            print("image dims: \(imageWidth), \(imageHeight)")
-//            print("offset \(offset)")
-//            print("cropRect: \(rect)")
             return rect
         }
         
@@ -131,36 +112,51 @@ extension PhotoCropper {
             print("failed to crop image")
             return nil
         }
-        //            profileImage.croppedImageData = UIImage(cgImage: croppedImage).pngData()
+        
         return UIImage(cgImage: croppedImage)
     }
     
     private func setOffsetAndScale() {
-        let newZoom: CGFloat = .minimum(.maximum(zoomScale, 1), 4)
+        let newZoom: CGFloat = min(max(zoomScale, 1), 4)
+        let imageWidth = (uiImage.size.width * imageScale) * newZoom
+        let imageHeight = (uiImage.size.height * imageScale) * newZoom
         
-        let imageWidth = (uiImage.size.width * originalScale) * newZoom
-        let imageHeight = (uiImage.size.height * originalScale) * newZoom
-        var width: CGFloat = .zero
-        var height: CGFloat = .zero
+        let cropSize: CGFloat = screenSize.width
         
-        if imageWidth > screenSize.width {
-            let widthLimit: CGFloat = imageWidth > screenSize.width ?
-            (imageWidth - screenSize.width) / 2
-            : 0
-            
-            width = offset.width > 0 ?
-                .minimum(widthLimit, offset.width) :
-                .maximum(-widthLimit, offset.width)
+        var width: CGFloat {
+            if imageWidth > cropSize {
+                var widthLimit: CGFloat = 0
+                
+                if imageWidth > cropSize {
+                    widthLimit = (imageWidth - cropSize) / 2
+                }
+                
+                if offset.width > 0 {
+                    return min(widthLimit, offset.width)
+                } else {
+                    return max(-widthLimit, offset.width)
+                }
+            } else {
+                return .zero
+            }
         }
         
-        if imageHeight > screenSize.height {
-            let heightLimit: CGFloat = imageHeight > screenSize.height ?
-            (imageHeight - screenSize.height) / 2
-            : 0
-            
-            height = offset.height > 0 ?
-                .minimum(heightLimit, offset.height) :
-                .maximum(-heightLimit, offset.height)
+        var height: CGFloat {
+            if imageHeight > cropSize {
+                var heightLimit: CGFloat = 0
+                
+                if imageHeight > cropSize {
+                    heightLimit = (imageHeight - cropSize) / 2
+                }
+                
+                if offset.height > 0 {
+                    return min(heightLimit, offset.height)
+                } else {
+                    return max(-heightLimit, offset.height)
+                }
+            } else {
+                return .zero
+            }
         }
         
         let newOffset = CGSize(width: width, height: height)
@@ -171,6 +167,20 @@ extension PhotoCropper {
         withAnimation() {
             offset = newOffset
             zoomScale = newZoom
+        }
+    }
+    
+    func loadPreviousValues() {
+        if profileImage.croppedImageData != nil {
+            if profileImage.position != .zero {
+                offset = profileImage.position
+                lastOffset = profileImage.position
+            }
+            
+            if profileImage.scale != 0 {
+                zoomScale = profileImage.scale
+                lastZoom = profileImage.scale
+            }
         }
     }
 }
@@ -205,6 +215,7 @@ extension PhotoCropper {
 //MARK: - LOCAL COMPONENTS
 extension PhotoCropper {
     private var circleMask: Path {
+        let inset: CGFloat = 15
         let rect = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
         let insetRect = CGRect(x: inset, y: inset, width: screenSize.width - (inset * 2), height: screenSize.height - (inset * 2))
         var shape = Rectangle().path(in: rect)
@@ -214,7 +225,9 @@ extension PhotoCropper {
     
     private var cancelButton: some View {
         Button {
-            dismiss()
+            withoutAnimation {
+                dismiss()
+            }
         } label: {
             Text("Cancel")
         }
@@ -223,7 +236,9 @@ extension PhotoCropper {
     private var saveButton: some View {
         Button {
             saveImage()
-            dismiss()
+            withoutAnimation {
+                dismiss()
+            }
         } label: {
             Text("Save")
         }
