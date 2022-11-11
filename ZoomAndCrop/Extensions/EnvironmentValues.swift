@@ -1,6 +1,6 @@
 //
 //  EnvironmentValues.swift
-//  ImageZoomAndCrop
+//  ZoomAndCrop
 //
 //  Created by Daniel Taylor English on 10/27/22.
 //

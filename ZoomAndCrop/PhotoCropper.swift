@@ -1,6 +1,6 @@
 //
 //  PhotoCropper.swift
-//  ImageZoomAndCrop
+//  ZoomAndCrop
 //
 //  Created by Daniel Taylor English on 11/10/22.
 //

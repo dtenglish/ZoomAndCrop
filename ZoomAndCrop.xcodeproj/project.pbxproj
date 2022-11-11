@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD514A86291472EC0077FB04 /* ImageZoomAndCropApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A85291472EC0077FB04 /* ImageZoomAndCropApp.swift */; };
+		BD514A86291472EC0077FB04 /* ZoomAndCropApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A85291472EC0077FB04 /* ZoomAndCropApp.swift */; };
 		BD514A88291472EC0077FB04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A87291472EC0077FB04 /* ContentView.swift */; };
 		BD514A8A291473020077FB04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD514A89291473020077FB04 /* Assets.xcassets */; };
 		BD514A8D291473020077FB04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD514A8C291473020077FB04 /* Preview Assets.xcassets */; };
@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BD514A82291472EC0077FB04 /* ImageZoomAndCrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageZoomAndCrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD514A85291472EC0077FB04 /* ImageZoomAndCropApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomAndCropApp.swift; sourceTree = "<group>"; };
+		BD514A82291472EC0077FB04 /* ZoomAndCrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZoomAndCrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD514A85291472EC0077FB04 /* ZoomAndCropApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAndCropApp.swift; sourceTree = "<group>"; };
 		BD514A87291472EC0077FB04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD514A89291473020077FB04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD514A8C291473020077FB04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 		BD514A79291472EC0077FB04 = {
 			isa = PBXGroup;
 			children = (
-				BD514A84291472EC0077FB04 /* ImageZoomAndCrop */,
+				BD514A84291472EC0077FB04 /* ZoomAndCrop */,
 				BD514A83291472EC0077FB04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,24 +55,24 @@
 		BD514A83291472EC0077FB04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BD514A82291472EC0077FB04 /* ImageZoomAndCrop.app */,
+				BD514A82291472EC0077FB04 /* ZoomAndCrop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BD514A84291472EC0077FB04 /* ImageZoomAndCrop */ = {
+		BD514A84291472EC0077FB04 /* ZoomAndCrop */ = {
 			isa = PBXGroup;
 			children = (
 				BD81FEC5291ED56B006D8285 /* Models */,
 				BD81FEC0291DDFE0006D8285 /* Extensions */,
-				BD514A85291472EC0077FB04 /* ImageZoomAndCropApp.swift */,
+				BD514A85291472EC0077FB04 /* ZoomAndCropApp.swift */,
 				BD514A87291472EC0077FB04 /* ContentView.swift */,
 				BD514A9329198D520077FB04 /* PhotoPicker.swift */,
 				BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */,
 				BD514A89291473020077FB04 /* Assets.xcassets */,
 				BD514A8B291473020077FB04 /* Preview Content */,
 			);
-			path = ImageZoomAndCrop;
+			path = ZoomAndCrop;
 			sourceTree = "<group>";
 		};
 		BD514A8B291473020077FB04 /* Preview Content */ = {
@@ -104,9 +104,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BD514A81291472EC0077FB04 /* ImageZoomAndCrop */ = {
+		BD514A81291472EC0077FB04 /* ZoomAndCrop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD514A90291473020077FB04 /* Build configuration list for PBXNativeTarget "ImageZoomAndCrop" */;
+			buildConfigurationList = BD514A90291473020077FB04 /* Build configuration list for PBXNativeTarget "ZoomAndCrop" */;
 			buildPhases = (
 				BD514A7E291472EC0077FB04 /* Sources */,
 				BD514A7F291472EC0077FB04 /* Frameworks */,
@@ -116,9 +116,9 @@
 			);
 			dependencies = (
 			);
-			name = ImageZoomAndCrop;
+			name = ZoomAndCrop;
 			productName = ImageZoomAndCrop;
-			productReference = BD514A82291472EC0077FB04 /* ImageZoomAndCrop.app */;
+			productReference = BD514A82291472EC0077FB04 /* ZoomAndCrop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -136,7 +136,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BD514A7D291472EC0077FB04 /* Build configuration list for PBXProject "ImageZoomAndCrop" */;
+			buildConfigurationList = BD514A7D291472EC0077FB04 /* Build configuration list for PBXProject "ZoomAndCrop" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -149,7 +149,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD514A81291472EC0077FB04 /* ImageZoomAndCrop */,
+				BD514A81291472EC0077FB04 /* ZoomAndCrop */,
 			);
 		};
 /* End PBXProject section */
@@ -174,7 +174,7 @@
 				BD514A9829198E800077FB04 /* EnvironmentValues.swift in Sources */,
 				BD514A88291472EC0077FB04 /* ContentView.swift in Sources */,
 				BD514ABC291D7BF70077FB04 /* PhotoCropper.swift in Sources */,
-				BD514A86291472EC0077FB04 /* ImageZoomAndCropApp.swift in Sources */,
+				BD514A86291472EC0077FB04 /* ZoomAndCropApp.swift in Sources */,
 				BD514A9629198DEC0077FB04 /* ProfileImageModel.swift in Sources */,
 				BD81FEC2291ED33D006D8285 /* UIImage+Extensions.swift in Sources */,
 				BD81FEBF291DDF05006D8285 /* View+Extensions.swift in Sources */,
@@ -306,10 +306,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ImageZoomAndCrop/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ZoomAndCrop/Preview Content\"";
 				DEVELOPMENT_TEAM = 69U4Z7GZ3R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zoom and Crop";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -320,7 +321,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.dtenglish.ImageZoomAndCrop;
+				PRODUCT_BUNDLE_IDENTIFIER = io.dtenglish.ZoomAndCrop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -335,10 +336,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ImageZoomAndCrop/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ZoomAndCrop/Preview Content\"";
 				DEVELOPMENT_TEAM = 69U4Z7GZ3R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zoom and Crop";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -349,7 +351,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.dtenglish.ImageZoomAndCrop;
+				PRODUCT_BUNDLE_IDENTIFIER = io.dtenglish.ZoomAndCrop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -360,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BD514A7D291472EC0077FB04 /* Build configuration list for PBXProject "ImageZoomAndCrop" */ = {
+		BD514A7D291472EC0077FB04 /* Build configuration list for PBXProject "ZoomAndCrop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD514A8E291473020077FB04 /* Debug */,
@@ -369,7 +371,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD514A90291473020077FB04 /* Build configuration list for PBXNativeTarget "ImageZoomAndCrop" */ = {
+		BD514A90291473020077FB04 /* Build configuration list for PBXNativeTarget "ZoomAndCrop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD514A91291473020077FB04 /* Debug */,

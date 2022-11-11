@@ -1,6 +1,6 @@
 //
 //  UIImage+Extensions.swift
-//  ImageZoomAndCrop
+//  ZoomAndCrop
 //
 //  Created by Daniel Taylor English on 11/11/22.
 //
