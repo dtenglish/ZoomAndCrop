@@ -15,7 +15,6 @@ struct PhotoCropper: View {
     
     @State private var zoomScale: CGFloat = 1
     @State private var lastZoom: CGFloat = 1
-    @State private var zoomAnchor: UnitPoint = .center
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
     
@@ -43,8 +42,9 @@ struct PhotoCropper: View {
                 .scaledToFit()
                 .position(x: screenSize.width / 2,
                           y: screenSize.height / 2)
-                .scaleEffect(zoomScale, anchor: zoomAnchor)
+                .scaleEffect(zoomScale)
                 .offset(offset)
+                .gesture(panGesture.simultaneously(with: zoomGesture))
                 .onAppear {
                     loadPreviousValues()
                 }
@@ -53,10 +53,11 @@ struct PhotoCropper: View {
                 .fill(Color.black)
                 .opacity(0.75)
                 .mask(circleMask.fill(style: FillStyle(eoFill: true)))
+                .allowsHitTesting(false)
             
             VStack {
                 Spacer()
-                HStack() {
+                HStack {
                     cancelButton
                     Spacer()
                     saveButton
@@ -69,8 +70,6 @@ struct PhotoCropper: View {
             }
         }
         .ignoresSafeArea()
-        .gesture(zoomGesture)
-        .simultaneousGesture(panGesture)
         .background(Color.black)
     }
 }
@@ -98,12 +97,10 @@ extension PhotoCropper {
         
         var cropRect: CGRect {
             let cropSize: CGFloat = (screenSize.width / imageScale) / zoomScale
-            
-            let initialX: CGFloat = ((imageWidth - cropSize) / 2)
-            let initialY: CGFloat = ((imageHeight - cropSize) / 2)
+            let initialX: CGFloat = (imageWidth - cropSize) / 2
+            let initialY: CGFloat = (imageHeight - cropSize) / 2
             let xOffset: CGFloat = initialX - (offset.width / imageScale) / zoomScale
             let yOffset: CGFloat = initialY - (offset.height / imageScale) / zoomScale
-            
             let rect = CGRect(x: xOffset, y: yOffset, width: cropSize, height: cropSize)
             return rect
         }
@@ -116,19 +113,19 @@ extension PhotoCropper {
         return UIImage(cgImage: croppedImage)
     }
     
+    // TODO: Adjust zoom to anchor to center of view rather than center of image
     private func setOffsetAndScale() {
+        let screenWidth: CGFloat = screenSize.width
         let newZoom: CGFloat = min(max(zoomScale, 1), 4)
         let imageWidth = (uiImage.size.width * imageScale) * newZoom
         let imageHeight = (uiImage.size.height * imageScale) * newZoom
         
-        let cropSize: CGFloat = screenSize.width
-        
         var width: CGFloat {
-            if imageWidth > cropSize {
+            if imageWidth > screenWidth {
                 var widthLimit: CGFloat = 0
                 
-                if imageWidth > cropSize {
-                    widthLimit = (imageWidth - cropSize) / 2
+                if imageWidth > screenWidth {
+                    widthLimit = (imageWidth - screenWidth) / 2
                 }
                 
                 if offset.width > 0 {
@@ -142,11 +139,11 @@ extension PhotoCropper {
         }
         
         var height: CGFloat {
-            if imageHeight > cropSize {
+            if imageHeight > screenWidth {
                 var heightLimit: CGFloat = 0
                 
-                if imageHeight > cropSize {
-                    heightLimit = (imageHeight - cropSize) / 2
+                if imageHeight > screenWidth {
+                    heightLimit = (imageHeight - screenWidth) / 2
                 }
                 
                 if offset.height > 0 {
@@ -161,8 +158,8 @@ extension PhotoCropper {
         
         let newOffset = CGSize(width: width, height: height)
         
-        lastZoom = newZoom
         lastOffset = newOffset
+        lastZoom = newZoom
         
         withAnimation() {
             offset = newOffset
@@ -190,7 +187,6 @@ extension PhotoCropper {
     var zoomGesture: some Gesture {
         MagnificationGesture()
             .onChanged { gesture in
-                zoomAnchor = .center
                 zoomScale = lastZoom * gesture
             }
             .onEnded { _ in
