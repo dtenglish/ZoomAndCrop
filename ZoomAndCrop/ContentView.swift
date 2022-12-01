@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            PhotoPicker(profileImage: $profileImage)
+            PhotoPickerView(profileImage: $profileImage)
         }
     }
 }

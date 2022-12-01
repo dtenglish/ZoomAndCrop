@@ -1,5 +1,5 @@
 //
-//  PhotoPicker.swift
+//  PhotoPickerView.swift
 //  ZoomAndCrop
 //
 //  Created by Daniel Taylor English on 10/27/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct PhotoPicker: View {
+struct PhotoPickerView: View {
     @Environment(\.screenSize) var screenSize
     @Binding var profileImage: ProfileImage
     @State private var selectedItem: PhotosPickerItem? = nil
@@ -30,55 +30,42 @@ struct PhotoPicker: View {
         ZStack {
             ZStack {
                 if displayImage != nil {
-                    Button {
-                        withoutAnimation {
-                            displayPhotoCropper = true
+                    Image(uiImage: displayImage!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .onTapGesture {
+                            withoutAnimation {
+                                displayPhotoCropper = true
+                            }
                         }
-                    } label: {
-                        Image(uiImage: displayImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    }
-                    
                 } else {
-                    ZStack {
+                    PhotoPicker(selectedItem: $selectedItem) {
                         Image(systemName: "photo")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .padding(screenSize.width * 0.25)
                             .foregroundColor(Color(UIColor.systemBackground))
                     }
-                    .background(.purple)
                 }
             }
             .frame(width: screenSize.width, height: screenSize.width, alignment: .center)
             
             Rectangle()
-                .fill(Color.black)
+                .fill(Color(UIColor.systemBackground))
                 .mask(circleMask.fill(style: FillStyle(eoFill: true)))
                 .allowsHitTesting(false)
             
             VStack {
-                Spacer()
-                PhotosPicker(
-                    selection: $selectedItem,
-                    matching: .images,
-                    photoLibrary: .shared()) {
-                        Label("Select a photo", systemImage: "photo")
-                    }
-                    .padding(.bottom, screenSize.width * 0.3)
-                    .foregroundColor(Color(UIColor.systemBackground))
-                    .tint(.purple)
-                    .controlSize(.large)
-                    .buttonStyle(.borderedProminent)
-                    .onChange(of: selectedItem) { newItem in
-                        Task {
-                            if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                profileImage.imageData = data
-                                profileImage.croppedImageData = nil
-                            }
-                        }
+                if displayImage != nil {
+                    Text("Tap image below to adjust zoom and crop.")
+                        .padding(.top, screenSize.width * 0.3)
                 }
+                Spacer()
+                PhotoPicker(selectedItem: $selectedItem) {
+                    Label("Select a photo", systemImage: "photo")
+                }
+                .padding(.bottom, screenSize.width * 0.3)
+                .controlSize(.large)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -86,11 +73,19 @@ struct PhotoPicker: View {
         .fullScreenCover(isPresented: $displayPhotoCropper) {
             PhotoCropper(profileImage: $profileImage)
         }
+        .onChange(of: selectedItem) { newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    profileImage.imageData = data
+                    profileImage.croppedImageData = nil
+                }
+            }
+        }
     }
 }
 
 //MARK: - LOCAL COMPONENTS
-extension PhotoPicker {
+extension PhotoPickerView {
     private var circleMask: Path {
         let inset: CGFloat = 15
         let rect = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
@@ -101,9 +96,30 @@ extension PhotoPicker {
     }
 }
 
+//MARK: - PHOTO PICKER
+fileprivate struct PhotoPicker: View {
+    @Binding var selectedItem: PhotosPickerItem?
+    @ViewBuilder var label: any View
+    
+    var body: some View {
+        ZStack {
+            PhotosPicker(
+                selection: $selectedItem,
+                matching: .images,
+                photoLibrary: .shared()) {
+                    AnyView(label)
+                }
+                .foregroundColor(Color(UIColor.systemBackground))
+                .tint(.purple)
+                .buttonStyle(.borderedProminent)
+        }
+    }
+}
+
+//MARK: - PREVIEW
 struct PhotoPicker_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPicker(profileImage: .constant(ProfileImage()))
+        PhotoPickerView(profileImage: .constant(ProfileImage()))
             .environment(\.screenSize, CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     }
 }

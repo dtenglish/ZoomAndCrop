@@ -11,7 +11,7 @@
 		BD514A88291472EC0077FB04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A87291472EC0077FB04 /* ContentView.swift */; };
 		BD514A8A291473020077FB04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD514A89291473020077FB04 /* Assets.xcassets */; };
 		BD514A8D291473020077FB04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD514A8C291473020077FB04 /* Preview Assets.xcassets */; };
-		BD514A9429198D520077FB04 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A9329198D520077FB04 /* PhotoPicker.swift */; };
+		BD514A9429198D520077FB04 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A9329198D520077FB04 /* PhotoPickerView.swift */; };
 		BD514A9629198DEC0077FB04 /* ProfileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A9529198DEC0077FB04 /* ProfileImageModel.swift */; };
 		BD514A9829198E800077FB04 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514A9729198E800077FB04 /* EnvironmentValues.swift */; };
 		BD514ABC291D7BF70077FB04 /* PhotoCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */; };
@@ -25,7 +25,7 @@
 		BD514A87291472EC0077FB04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD514A89291473020077FB04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD514A8C291473020077FB04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BD514A9329198D520077FB04 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		BD514A9329198D520077FB04 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		BD514A9529198DEC0077FB04 /* ProfileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageModel.swift; sourceTree = "<group>"; };
 		BD514A9729198E800077FB04 /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropper.swift; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 				BD81FEC0291DDFE0006D8285 /* Extensions */,
 				BD514A85291472EC0077FB04 /* ZoomAndCropApp.swift */,
 				BD514A87291472EC0077FB04 /* ContentView.swift */,
-				BD514A9329198D520077FB04 /* PhotoPicker.swift */,
+				BD514A9329198D520077FB04 /* PhotoPickerView.swift */,
 				BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */,
 				BD514A89291473020077FB04 /* Assets.xcassets */,
 				BD514A8B291473020077FB04 /* Preview Content */,
@@ -178,7 +178,7 @@
 				BD514A9629198DEC0077FB04 /* ProfileImageModel.swift in Sources */,
 				BD81FEC2291ED33D006D8285 /* UIImage+Extensions.swift in Sources */,
 				BD81FEBF291DDF05006D8285 /* View+Extensions.swift in Sources */,
-				BD514A9429198D520077FB04 /* PhotoPicker.swift in Sources */,
+				BD514A9429198D520077FB04 /* PhotoPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

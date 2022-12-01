@@ -241,6 +241,7 @@ extension PhotoCropper {
     }
 }
 
+//MARK: - PREVIEW
 struct PhotoCropper_Previews: PreviewProvider {
     static var previews: some View {
         PhotoCropper(profileImage: .constant(ProfileImage(scale: 1, position: .zero)))
