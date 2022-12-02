@@ -7,7 +7,31 @@
 
 import SwiftUI
 
-extension UIImage {
+extension UIImage {    
+    var imageOrientation: OrientationFormat {
+        if self.size.height >= self.size.width {
+            return .portrait
+        } else {
+            return .landscape
+        }
+    }
+    
+    var longSide: CGFloat {
+        if imageOrientation == .portrait {
+            return self.size.height
+        } else {
+            return self.size.width
+        }
+    }
+    
+    var shortSide: CGFloat {
+        if imageOrientation == .portrait {
+            return self.size.width
+        } else {
+            return self.size.height
+        }
+    }
+    
     func fixOrientation() -> UIImage {
         UIGraphicsBeginImageContext(self.size)
         self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))

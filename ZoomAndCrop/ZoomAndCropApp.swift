@@ -13,10 +13,7 @@ struct ZoomAndCropApp: App {
         WindowGroup {
             GeometryReader { geometry in
                 ContentView()
-                    .environment(\.screenSize, geometry.size)
-                    .onAppear {
-                        print("screen size: \(geometry.size)")
-                    }
+                    .environment(\.screenSize, ViewSize(width: geometry.size.width, height: geometry.size.height))
             }
             .ignoresSafeArea()
         }

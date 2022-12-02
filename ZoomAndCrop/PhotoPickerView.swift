@@ -120,6 +120,6 @@ fileprivate struct PhotoPicker: View {
 struct PhotoPicker_Previews: PreviewProvider {
     static var previews: some View {
         PhotoPickerView(profileImage: .constant(ProfileImage()))
-            .environment(\.screenSize, CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+            .environment(\.screenSize, ViewSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     }
 }

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: Fix - zoomed in landscape/low resolution images sometimes shift/shrink a few pixels when cropping
+// TODO: Adjust zoom to anchor to center of current view rather than center of image
 struct PhotoCropper: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.screenSize) var screenSize
@@ -28,18 +30,23 @@ struct PhotoCropper: View {
     }
     
     private var imageScale: CGFloat {
-        if uiImage.size.width / uiImage.size.height >= screenSize.width / screenSize.height {
-            return screenSize.width / uiImage.size.width
+        if uiImage.shortSide / uiImage.longSide >= screenSize.shortSide / screenSize.longSide {
+            return screenSize.shortSide / uiImage.shortSide
         } else {
-            return screenSize.height / uiImage.size.height
+            return screenSize.longSide / uiImage.longSide
         }
+    }
+    
+    private var imageConstraint: CGFloat {
+        return screenSize.shortSide
     }
     
     var body: some View {
         ZStack {
             Image(uiImage: uiImage)
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
+                .frame(width: imageConstraint, height: imageConstraint)
                 .position(x: screenSize.width / 2,
                           y: screenSize.height / 2)
                 .scaleEffect(zoomScale)
@@ -96,7 +103,7 @@ extension PhotoCropper {
         let imageHeight: CGFloat = CGFloat(cgImage.height)
         
         var cropRect: CGRect {
-            let cropSize: CGFloat = (screenSize.width / imageScale) / zoomScale
+            let cropSize: CGFloat = (imageConstraint / imageScale) / zoomScale
             let initialX: CGFloat = (imageWidth - cropSize) / 2
             let initialY: CGFloat = (imageHeight - cropSize) / 2
             let xOffset: CGFloat = initialX - (offset.width / imageScale) / zoomScale
@@ -113,20 +120,14 @@ extension PhotoCropper {
         return UIImage(cgImage: croppedImage)
     }
     
-    // TODO: Adjust zoom to anchor to center of view rather than center of image
     private func setOffsetAndScale() {
-        let screenWidth: CGFloat = screenSize.width
         let newZoom: CGFloat = min(max(zoomScale, 1), 4)
         let imageWidth = (uiImage.size.width * imageScale) * newZoom
         let imageHeight = (uiImage.size.height * imageScale) * newZoom
         
         var width: CGFloat {
-            if imageWidth > screenWidth {
-                var widthLimit: CGFloat = 0
-                
-                if imageWidth > screenWidth {
-                    widthLimit = (imageWidth - screenWidth) / 2
-                }
+            if imageWidth > imageConstraint {
+                let widthLimit: CGFloat = (imageWidth - imageConstraint) / 2
                 
                 if offset.width > 0 {
                     return min(widthLimit, offset.width)
@@ -139,12 +140,8 @@ extension PhotoCropper {
         }
         
         var height: CGFloat {
-            if imageHeight > screenWidth {
-                var heightLimit: CGFloat = 0
-                
-                if imageHeight > screenWidth {
-                    heightLimit = (imageHeight - screenWidth) / 2
-                }
+            if imageHeight > imageConstraint {
+                let heightLimit: CGFloat = (imageHeight - imageConstraint) / 2
                 
                 if offset.height > 0 {
                     return min(heightLimit, offset.height)
@@ -245,6 +242,6 @@ extension PhotoCropper {
 struct PhotoCropper_Previews: PreviewProvider {
     static var previews: some View {
         PhotoCropper(profileImage: .constant(ProfileImage(scale: 1, position: .zero)))
-            .environment(\.screenSize, CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+            .environment(\.screenSize, ViewSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     }
 }
