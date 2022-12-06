@@ -32,7 +32,7 @@ struct PhotoPickerView: View {
                 if displayImage != nil {
                     Image(uiImage: displayImage!)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .scaledToFill()
                         .onTapGesture {
                             withoutAnimation {
                                 displayPhotoCropper = true

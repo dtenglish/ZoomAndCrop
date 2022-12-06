@@ -17,8 +17,8 @@
 		BD514ABC291D7BF70077FB04 /* PhotoCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */; };
 		BD81FEBF291DDF05006D8285 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81FEBE291DDF05006D8285 /* View+Extensions.swift */; };
 		BD81FEC2291ED33D006D8285 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81FEC1291ED33D006D8285 /* UIImage+Extensions.swift */; };
-		BD81FECC293A6B26006D8285 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81FECB293A6B26006D8285 /* Enums.swift */; };
 		BD81FECE293A6C12006D8285 /* ViewSizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81FECD293A6C12006D8285 /* ViewSizeModel.swift */; };
+		BD81FED4293FAAE5006D8285 /* OrientationFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD81FED3293FAAE5006D8285 /* OrientationFormatType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +33,8 @@
 		BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropper.swift; sourceTree = "<group>"; };
 		BD81FEBE291DDF05006D8285 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		BD81FEC1291ED33D006D8285 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
-		BD81FECB293A6B26006D8285 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		BD81FECD293A6C12006D8285 /* ViewSizeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeModel.swift; sourceTree = "<group>"; };
+		BD81FED3293FAAE5006D8285 /* OrientationFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationFormatType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,12 +68,10 @@
 			isa = PBXGroup;
 			children = (
 				BD81FEC5291ED56B006D8285 /* Models */,
+				BD81FED6293FAB58006D8285 /* Views */,
+				BD81FED7293FAB6C006D8285 /* Components */,
 				BD81FEC0291DDFE0006D8285 /* Extensions */,
-				BD81FECA293A6B13006D8285 /* Constants */,
 				BD514A85291472EC0077FB04 /* ZoomAndCropApp.swift */,
-				BD514A87291472EC0077FB04 /* ContentView.swift */,
-				BD514A9329198D520077FB04 /* PhotoPickerView.swift */,
-				BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */,
 				BD514A89291473020077FB04 /* Assets.xcassets */,
 				BD514A8B291473020077FB04 /* Preview Content */,
 			);
@@ -101,18 +99,36 @@
 		BD81FEC5291ED56B006D8285 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BD81FED5293FAB09006D8285 /* Types */,
 				BD514A9529198DEC0077FB04 /* ProfileImageModel.swift */,
 				BD81FECD293A6C12006D8285 /* ViewSizeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		BD81FECA293A6B13006D8285 /* Constants */ = {
+		BD81FED5293FAB09006D8285 /* Types */ = {
 			isa = PBXGroup;
 			children = (
-				BD81FECB293A6B26006D8285 /* Enums.swift */,
+				BD81FED3293FAAE5006D8285 /* OrientationFormatType.swift */,
 			);
-			path = Constants;
+			path = Types;
+			sourceTree = "<group>";
+		};
+		BD81FED6293FAB58006D8285 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BD514A87291472EC0077FB04 /* ContentView.swift */,
+				BD514A9329198D520077FB04 /* PhotoPickerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BD81FED7293FAB6C006D8285 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BD514ABB291D7BF70077FB04 /* PhotoCropper.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +209,7 @@
 				BD514A9629198DEC0077FB04 /* ProfileImageModel.swift in Sources */,
 				BD81FEC2291ED33D006D8285 /* UIImage+Extensions.swift in Sources */,
 				BD81FEBF291DDF05006D8285 /* View+Extensions.swift in Sources */,
-				BD81FECC293A6B26006D8285 /* Enums.swift in Sources */,
+				BD81FED4293FAAE5006D8285 /* OrientationFormatType.swift in Sources */,
 				BD514A9429198D520077FB04 /* PhotoPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

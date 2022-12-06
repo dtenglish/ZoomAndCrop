@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// TODO: Fix - zoomed in landscape/low resolution images sometimes shift/shrink a few pixels when cropping
+// TODO: Fix - Images sometimes shift a few pixels when cropping, slightly more noticeable on zoomed in landscape images.
 // TODO: Adjust zoom to anchor to center of current view rather than center of image
 struct PhotoCropper: View {
     @Environment(\.dismiss) var dismiss
